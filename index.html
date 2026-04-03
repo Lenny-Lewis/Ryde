@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ryde | Your ride, your way</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2979FF",
+              page: "#E8F4FF",
+              ink: "#1A1A2E",
+              muted: "#6B7280",
+            },
+            fontFamily: {
+              sans: ["Inter", "Poppins", "system-ui", "sans-serif"],
+            },
+            boxShadow: {
+              phone: "0 30px 80px rgba(41, 121, 255, 0.18)",
+              float: "0 20px 45px rgba(26, 26, 46, 0.12)",
+            },
+            animation: {
+              "float-slow": "float 5.5s ease-in-out infinite",
+              "float-delayed": "float 6.5s ease-in-out 0.6s infinite",
+              "fade-up": "fadeUp 0.9s ease-out both",
+            },
+            keyframes: {
+              float: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-10px)" },
+              },
+              fadeUp: {
+                "0%": { opacity: "0", transform: "translateY(20px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Poppins:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .phone-tilt {
+        transform: perspective(1200px) rotateY(-12deg) rotateX(4deg);
+      }
+
+      @media (max-width: 1023px) {
+        .phone-tilt {
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-page font-sans text-ink antialiased">
+    <main class="relative overflow-hidden">
+      <div class="absolute inset-0 -z-10">
+        <div class="absolute left-[-8rem] top-[-6rem] h-72 w-72 rounded-full bg-primary/15 blur-3xl"></div>
+        <div class="absolute bottom-10 right-[-6rem] h-80 w-80 rounded-full bg-white/60 blur-3xl"></div>
+      </div>
+
+      <section class="relative mx-auto min-h-screen max-w-7xl px-6 py-8 sm:px-10 lg:px-12">
+        <header class="flex items-center justify-between">
+          <div class="text-2xl font-extrabold tracking-tight text-ink">
+            <span class="text-primary">Ryde</span>
+          </div>
+          <nav class="hidden items-center gap-8 text-sm font-medium text-muted md:flex">
+            <a href="#features" class="transition hover:text-ink">Features</a>
+            <a href="#about" class="transition hover:text-ink">About</a>
+            <a
+              href="#download"
+              class="rounded-full bg-white px-5 py-2 text-ink shadow-sm ring-1 ring-slate-200 transition hover:ring-primary/40"
+              >Download</a
+            >
+          </nav>
+        </header>
+
+        <div class="grid items-center gap-16 pb-14 pt-14 lg:grid-cols-[1.05fr_0.95fr] lg:pt-20">
+          <div class="relative z-10 max-w-2xl animate-fade-up">
+            <p class="mb-6 inline-flex rounded-full bg-white/80 px-4 py-2 text-sm font-medium text-muted ring-1 ring-white/70 backdrop-blur">
+              Everyday rides with premium simplicity
+            </p>
+            <h1 class="max-w-xl text-5xl font-extrabold leading-tight tracking-tight text-ink sm:text-6xl lg:text-7xl">
+              Your ride, your way. Let&apos;s get started!
+              <span class="block text-primary">With Ryde.</span>
+            </h1>
+            <p class="mt-6 max-w-lg text-base leading-8 text-muted sm:text-lg">
+              Enter your destination, sit back, and let us take care of the rest.
+            </p>
+            <div class="mt-9">
+              <a
+                href="#download"
+                class="inline-flex items-center justify-center rounded-full bg-primary px-8 py-4 text-base font-bold text-white shadow-float transition hover:scale-[1.02] hover:bg-blue-600"
+                >Get started</a
+              >
+            </div>
+          </div>
+
+          <div class="relative flex justify-center lg:justify-end">
+            <div class="absolute left-2 top-20 hidden w-56 rounded-[30px] border border-white/70 bg-white/55 p-5 text-sm text-muted shadow-float backdrop-blur-md animate-float-slow md:block">
+              <div class="mb-4 h-10 w-40 rounded-2xl bg-white/80 px-4 py-2 font-medium text-ink">
+                Create account
+              </div>
+              <div class="space-y-3">
+                <div class="h-12 rounded-2xl bg-white/70"></div>
+                <div class="h-12 rounded-2xl bg-white/70"></div>
+                <div class="h-12 rounded-2xl border border-primary/20 bg-white/80 px-4 py-3 font-medium text-ink">
+                  Log In with Google
+                </div>
+                <div class="pt-1 text-xs">
+                  Don&apos;t have an account? <span class="text-primary">Log in</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="absolute bottom-8 right-0 hidden w-48 rounded-[28px] border border-white/70 bg-white/50 p-4 shadow-float backdrop-blur-md animate-float-delayed md:block">
+              <div class="mb-3 h-4 w-24 rounded-full bg-primary/20"></div>
+              <div class="space-y-2">
+                <div class="h-11 rounded-2xl bg-white/70"></div>
+                <div class="h-11 rounded-2xl bg-white/70"></div>
+                <div class="h-3 w-28 rounded-full bg-slate-300/70"></div>
+              </div>
+            </div>
+
+            <div class="relative w-full max-w-[26rem] pt-12 sm:max-w-[28rem]">
+              <div class="absolute left-0 top-0 z-20 w-64 animate-float-slow rounded-[26px] bg-white p-4 shadow-float ring-1 ring-slate-100 sm:left-[-2.5rem]">
+                <div class="flex items-center gap-3">
+                  <img
+                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=160&q=80"
+                    alt="Jane Cooper"
+                    class="h-12 w-12 rounded-full object-cover"
+                  />
+                  <div class="min-w-0 flex-1">
+                    <div class="flex items-center justify-between gap-2">
+                      <p class="truncate font-bold text-ink">Jane Cooper</p>
+                      <span class="text-sm font-bold text-primary">$60</span>
+                    </div>
+                    <div class="mt-1 flex items-center gap-2 text-xs text-muted">
+                      <span class="font-semibold text-amber-500">★ 4.9</span>
+                      <span>10 min</span>
+                      <span>4 Seats</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="phone-tilt relative mx-auto w-[19rem] rounded-[3rem] border-[10px] border-[#0f172a] bg-[#0f172a] p-2 shadow-phone sm:w-[20.5rem]">
+                <div class="absolute left-1/2 top-3 z-20 h-7 w-28 -translate-x-1/2 rounded-full bg-black"></div>
+                <div class="overflow-hidden rounded-[2.4rem] bg-white">
+                  <div class="min-h-[39rem] bg-gradient-to-b from-page via-white to-page px-5 pb-6 pt-14">
+                    <div class="rounded-[2rem] bg-white p-4 shadow-lg ring-1 ring-slate-100">
+                      <div class="rounded-[1.7rem] bg-page px-4 py-6">
+                        <img
+                          src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=900&q=80"
+                          alt="White Tesla Model S"
+                          class="mx-auto h-40 w-full rounded-[1.4rem] object-cover"
+                        />
+                      </div>
+                      <div class="px-1 pb-2 pt-6 text-center">
+                        <h2 class="text-2xl font-extrabold leading-tight text-ink">
+                          The best car in your hands with <span class="text-primary">Ryde</span>
+                        </h2>
+                        <p class="mt-3 text-sm leading-6 text-muted">
+                          Discover the convenience of finding your perfect ride with our
+                          <span class="text-primary font-semibold">Ryde</span> App
+                        </p>
+                        <div class="mt-6 flex items-center justify-center gap-2">
+                          <span class="h-2.5 w-6 rounded-full bg-primary"></span>
+                          <span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+                          <span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+                        </div>
+                        <button
+                          type="button"
+                          class="mt-7 w-full rounded-[1.2rem] bg-primary px-5 py-4 text-base font-bold text-white transition hover:bg-blue-600"
+                        >
+                          Next
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="border-t border-white/70 bg-white/55 backdrop-blur-sm">
+        <div class="mx-auto max-w-5xl px-6 py-16 text-center sm:px-10 lg:px-12 lg:py-20">
+          <h2 id="about" class="mx-auto max-w-4xl text-3xl font-extrabold leading-tight text-ink sm:text-4xl lg:text-5xl">
+            On-Demand Rides Made Simple with a Powerful, User-Friendly App called
+            <span class="text-primary">Ryde</span>
+          </h2>
+          <p id="download" class="mx-auto mt-6 max-w-3xl text-base leading-8 text-muted sm:text-lg">
+            Book faster, track your driver in real time, and move through your day with less friction.
+            <span class="text-primary font-semibold">Ryde</span> combines clean design, reliable ride options,
+            and a smooth onboarding flow so getting from point A to point B feels effortless.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
