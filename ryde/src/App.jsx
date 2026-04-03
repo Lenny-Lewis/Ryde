@@ -6,63 +6,109 @@ const onboardingSlides = [
     id: 0,
     title: 'The best car in your hands with Ryde',
     description:
-      'Discover the convenience of finding your perfect ride with our Ryde App.',
+      'Move from signup to first ride in minutes with a product designed for daily commuters and teams.',
     image:
       'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=900&q=80',
-    cta: 'Next',
+    cta: 'Start onboarding',
   },
   {
     id: 1,
     title: 'Track every turn with real-time pickup updates',
     description:
-      'See your driver move toward you, check ETAs instantly, and ride with more confidence.',
+      'See your driver live, review arrival windows, and reduce rider uncertainty before pickup.',
     image:
       'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80',
-    cta: 'Track ride',
+    cta: 'Track a live trip',
   },
   {
     id: 2,
     title: 'Premium comfort, everyday pricing with Ryde',
     description:
-      'Choose the ride that matches your day, from quick solo trips to polished client pickups.',
+      'Offer solo, comfort, and team-ready rides without losing clarity around price and timing.',
     image:
       'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=900&q=80',
-    cta: 'Book now',
+    cta: 'Compare ride plans',
   },
 ]
 
 const rideOptions = [
-  { id: 'solo', name: 'Ryde Go', eta: '4 min', price: '$18', seats: 4 },
-  { id: 'comfort', name: 'Ryde Comfort', eta: '6 min', price: '$26', seats: 4 },
-  { id: 'xl', name: 'Ryde XL', eta: '8 min', price: '$34', seats: 6 },
+  {
+    id: 'go',
+    name: 'Ryde Go',
+    eta: '4 min',
+    price: '$18',
+    seats: 4,
+    note: 'Balanced for daily urban trips.',
+  },
+  {
+    id: 'comfort',
+    name: 'Ryde Comfort',
+    eta: '6 min',
+    price: '$26',
+    seats: 4,
+    note: 'More space for business and airport runs.',
+  },
+  {
+    id: 'xl',
+    name: 'Ryde XL',
+    eta: '8 min',
+    price: '$34',
+    seats: 6,
+    note: 'Best for groups and family transfers.',
+  },
 ]
 
 const trustStats = [
-  { value: '4.9', label: 'Average rating' },
-  { value: '2 min', label: 'Fast booking flow' },
-  { value: '24/7', label: 'Ride availability' },
+  { value: '18k+', label: 'Prototype waitlist signups' },
+  { value: '96%', label: 'Booking completion target' },
+  { value: '12 cities', label: 'Launch expansion roadmap' },
 ]
 
 const showcaseCards = [
   {
-    title: 'Live driver tracking',
-    text: 'A moving status panel creates the feeling of a working product, not a flat mockup.',
+    title: 'Operations that stay visible',
+    text: 'Dispatch states, fare clarity, and ride status keep riders and operators aligned from booking to dropoff.',
   },
   {
-    title: 'Instant fare clarity',
-    text: 'Estimate pricing, pickup time, and ride type before a rider commits.',
+    title: 'Built for rider trust',
+    text: 'Clear ETAs, vehicle context, and account flows reduce uncertainty during the most important moments.',
   },
   {
-    title: 'Client-ready visual polish',
-    text: 'Layered cards, soft motion, and clear hierarchy make the concept presentation-grade.',
+    title: 'Presentation-ready product language',
+    text: 'The UI now speaks like a service preparing for market, not like a one-off mockup.',
   },
 ]
+
+const productMilestones = [
+  {
+    title: 'About Ryde',
+    text: 'Ryde is a mobility product focused on dependable city rides, business travel, and transparent booking experiences.',
+  },
+  {
+    title: 'Where the prototype is headed',
+    text: 'This build is designed to help validate rider demand, operator workflows, and launch messaging before full release.',
+  },
+  {
+    title: 'What teams can review today',
+    text: 'Booking flow, ride selection, onboarding states, and product calls-to-action are already modeled as interactive behaviors.',
+  },
+]
+
+const actionMessages = {
+  onboarding: 'Onboarding preview opened. Flow is ready for stakeholder review.',
+  tracking: 'Live trip tracking preview loaded for the current route.',
+  plans: 'Ride plan comparison is ready. Review Go, Comfort, and XL options below.',
+  walkthrough: 'Product walk-through request captured. Team follow-up can plug in here.',
+  estimate: 'Fare estimate refreshed for this route.',
+  download: 'app coming soon',
+}
 
 function App() {
   const [activeSlide, setActiveSlide] = useState(0)
   const [activeRide, setActiveRide] = useState(rideOptions[1].id)
   const [pickup, setPickup] = useState('Westlands Mall')
   const [destination, setDestination] = useState('Upper Hill Towers')
+  const [announcement, setAnnouncement] = useState('')
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -75,8 +121,36 @@ function App() {
   const selectedRide =
     rideOptions.find((ride) => ride.id === activeRide) ?? rideOptions[1]
   const activeSlideData = onboardingSlides[activeSlide]
-
   const bookingSummary = `${pickup} to ${destination}`
+
+  const updateAnnouncement = (message) => {
+    setAnnouncement(message)
+  }
+
+  const handleEstimate = () => {
+    updateAnnouncement(actionMessages.estimate)
+  }
+
+  const handleSlideAction = () => {
+    if (activeSlideData.id === 0) {
+      updateAnnouncement(actionMessages.onboarding)
+      return
+    }
+
+    if (activeSlideData.id === 1) {
+      setPickup('Sarit Centre')
+      setDestination('Gigiri Business Park')
+      updateAnnouncement(actionMessages.tracking)
+      return
+    }
+
+    setActiveRide('xl')
+    updateAnnouncement(actionMessages.plans)
+  }
+
+  const handleDownload = () => {
+    updateAnnouncement(actionMessages.download)
+  }
 
   return (
     <main className="page-shell">
@@ -86,37 +160,45 @@ function App() {
       <section className="hero-section" id="hero">
         <header className="topbar">
           <a className="brand" href="#hero" aria-label="Ryde home">
+            <span className="brand-mark">R</span>
             <span className="brand-name">Ryde</span>
           </a>
 
           <nav className="topnav" aria-label="Primary">
             <a href="#features">Features</a>
-            <a href="#experience">Experience</a>
-            <a href="#download" className="nav-cta">
-              Request demo
-            </a>
+            <a href="#about">About</a>
+            <button type="button" className="nav-cta" onClick={handleDownload}>
+              Download
+            </button>
           </nav>
         </header>
 
         <div className="hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">Everyday rides with premium simplicity</p>
+            <p className="eyebrow">Urban mobility designed to launch well</p>
             <h1>
-              Your ride, your way. Let&apos;s get started with <span>Ryde</span>.
+              Build rider trust before the first trip with <span>Ryde</span>.
             </h1>
             <p className="hero-text">
-              Enter your destination, sit back, and let us take care of the rest.
-              Ryde feels fast, premium, and client-ready on every screen.
+              Ryde is positioned as a real booking product with fast trip setup,
+              transparent pricing, and an interface that supports launch
+              conversations, not just static demos.
             </p>
 
             <div className="hero-actions">
-              <a className="primary-button" href="#download">
-                Get started
-              </a>
-              <a className="ghost-button" href="#experience">
-                See live preview
+              <button type="button" className="primary-button" onClick={handleDownload}>
+                Download app
+              </button>
+              <a className="ghost-button" href="#about">
+                Explore product
               </a>
             </div>
+
+            {announcement ? (
+              <div className="inline-status" role="status" aria-live="polite">
+                {announcement}
+              </div>
+            ) : null}
 
             <div className="stats-row">
               {trustStats.map((stat) => (
@@ -131,7 +213,7 @@ function App() {
               <div className="booking-header">
                 <div>
                   <p className="booking-kicker">Ride estimator</p>
-                  <h2>Show clients a flow that feels real</h2>
+                  <h2>Configure routes with believable product behavior</h2>
                 </div>
                 <span className="status-pill">Drivers nearby</span>
               </div>
@@ -163,7 +245,10 @@ function App() {
                     key={ride.id}
                     type="button"
                     className={ride.id === activeRide ? 'ride-tab is-active' : 'ride-tab'}
-                    onClick={() => setActiveRide(ride.id)}
+                    onClick={() => {
+                      setActiveRide(ride.id)
+                      updateAnnouncement(`${ride.name} selected. ${ride.note}`)
+                    }}
                   >
                     <span>{ride.name}</span>
                     <small>{ride.price}</small>
@@ -180,6 +265,23 @@ function App() {
                 </div>
                 <strong>{selectedRide.price}</strong>
               </div>
+
+              <div className="booking-actions">
+                <button type="button" className="primary-button" onClick={handleEstimate}>
+                  Refresh estimate
+                </button>
+                <button
+                  type="button"
+                  className="ghost-button ghost-button-solid"
+                  onClick={() =>
+                    updateAnnouncement(
+                      `Route saved for launch review: ${bookingSummary}.`,
+                    )
+                  }
+                >
+                  Save route
+                </button>
+              </div>
             </section>
           </div>
 
@@ -188,9 +290,9 @@ function App() {
               <div className="fragment-title">Create account</div>
               <div className="fragment-field" />
               <div className="fragment-field" />
-              <div className="fragment-google">Log In with Google</div>
+              <div className="fragment-google">Continue with Google</div>
               <div className="fragment-link">
-                Don&apos;t have an account? <span>Log in</span>
+                New riders onboard in under <span>2 minutes</span>
               </div>
             </div>
 
@@ -238,21 +340,12 @@ function App() {
                     </div>
 
                     <div className="car-panel">
-                      <img
-                        src={activeSlideData.image}
-                        alt="Ryde featured vehicle"
-                      />
+                      <img src={activeSlideData.image} alt="Ryde featured vehicle" />
                     </div>
 
                     <div className="onboarding-copy">
                       <div className="mini-tag">Live onboarding</div>
-                      <h2>
-                        {activeSlideData.title.split('Ryde')[0]}
-                        <span>{activeSlideData.title.includes('Ryde') ? 'Ryde' : ''}</span>
-                        {activeSlideData.title.includes('Ryde')
-                          ? activeSlideData.title.split('Ryde')[1]
-                          : ''}
-                      </h2>
+                      <h2>{activeSlideData.title}</h2>
                       <p>{activeSlideData.description}</p>
 
                       <div className="pagination" aria-label="Carousel position">
@@ -262,12 +355,21 @@ function App() {
                             type="button"
                             className={index === activeSlide ? 'is-active' : ''}
                             aria-label={`Show slide ${index + 1}`}
-                            onClick={() => setActiveSlide(index)}
+                            onClick={() => {
+                              setActiveSlide(index)
+                              updateAnnouncement(
+                                `Preview moved to slide ${index + 1}: ${slide.title}`,
+                              )
+                            }}
                           />
                         ))}
                       </div>
 
-                      <button type="button" className="secondary-button">
+                      <button
+                        type="button"
+                        className="secondary-button"
+                        onClick={handleSlideAction}
+                      >
                         {activeSlideData.cta}
                       </button>
                     </div>
@@ -281,25 +383,24 @@ function App() {
 
       <section className="showcase-strip" aria-label="Product highlights">
         <div className="showcase-marquee">
-          <span>Real-time map</span>
-          <span>Premium onboarding</span>
-          <span>Dynamic fare estimator</span>
-          <span>Client-ready presentation</span>
-          <span>Mobile-first booking flow</span>
+          <span>Transparent fares</span>
+          <span>Route saving</span>
+          <span>Live trip visibility</span>
+          <span>Waitlist messaging</span>
+          <span>Operational confidence</span>
         </div>
       </section>
 
       <section className="info-section" id="features">
         <div className="info-inner">
           <h2>
-            On-Demand Rides Made Simple with a Powerful, User-Friendly App called{' '}
+            On-demand rides made practical, scalable, and launch-ready with{' '}
             <span>Ryde</span>
           </h2>
           <p>
-            Book faster, track your driver in real time, and move through your day
-            with less friction. Ryde combines clean design, reliable ride options,
-            and a smooth onboarding flow so getting from point A to point B feels
-            effortless.
+            The product now presents clearer user value: booking speed, rider
+            certainty, and a polished interface that can support launch planning,
+            stakeholder walkthroughs, and early customer validation.
           </p>
 
           <div className="feature-grid" id="experience">
@@ -314,23 +415,54 @@ function App() {
         </div>
       </section>
 
+      <section className="about-section" id="about">
+        <div className="info-inner about-layout">
+          <div>
+            <p className="booking-kicker">About the product</p>
+            <h2>
+              <span>Ryde</span> is being shaped as a real mobility service, not a
+              throwaway concept.
+            </h2>
+            <p>
+              This prototype communicates market intent clearly: reliable urban
+              transport, rider-first design, and launch messaging that supports
+              decision-making across product, operations, and business teams.
+            </p>
+          </div>
+
+          <div className="about-grid">
+            {productMilestones.map((item) => (
+              <article key={item.title} className="about-card">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="cta-section" id="download">
         <div className="cta-card">
           <div>
-            <p className="booking-kicker">Client-ready finale</p>
+            <p className="booking-kicker">Release messaging</p>
             <h2>
-              Present <span>Ryde</span> like a product that already belongs in market.
+              Let users signal interest while <span>Ryde</span> moves toward launch.
             </h2>
             <p>
-              Responsive layout, interactive UI states, and polished motion make this
-              suitable for demos, pitches, and stakeholder reviews.
+              Download intent is captured here with clear messaging, while the
+              rest of the interface continues to behave like a working product
+              prototype.
             </p>
           </div>
           <div className="cta-actions">
-            <a className="primary-button" href="#hero">
-              Back to top
-            </a>
-            <button type="button" className="ghost-button">
+            <button type="button" className="primary-button" onClick={handleDownload}>
+              Download app
+            </button>
+            <button
+              type="button"
+              className="ghost-button"
+              onClick={() => updateAnnouncement(actionMessages.walkthrough)}
+            >
               Request product walk-through
             </button>
           </div>
